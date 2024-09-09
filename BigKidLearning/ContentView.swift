@@ -36,6 +36,8 @@ struct ContentView: View {
     @State private var rounds = 0
     @State private var wrongSelectedOption = 0
     
+    @State private var gameOver = false
+    
     
     
     
@@ -82,8 +84,7 @@ struct ContentView: View {
                              
                     }
                     VStack{
-                        
-                        
+                        // Showing 3 colors at a time
                         ForEach(0..<3){ number in
                             Button {
                                 optionSelected(number)
@@ -112,13 +113,25 @@ struct ContentView: View {
             }
             
         }
+        // alert for every time an option is selected and showing the result
         .alert("\(scoreTitle) ", isPresented: $showScore){
-            Button("Continue", action: askQuestion)
+            Button("Continue", action: gameLimit)
         } message: {
             Text("Your score is \(currentScore)")
         }
+        
+        // alert for when the game reach up to the last round
+        .alert("Game Over ",isPresented: $gameOver ) {
+            Button("Restart", action: resetGame)
+        } message: {
+            Text(" Score \(currentScore) / 10")
+        }
     }
+    
+    // Testing if the option selected is correct or incorrect
+    // and if incorrect, show name of the incorrect option selected
     func optionSelected(_ number: Int){
+        rounds += 1 // counting rounds
         wrongSelectedOption = number
         if number == correctColor{
             scoreTitle = "Correct"
@@ -129,9 +142,32 @@ struct ContentView: View {
         showScore = true
     }
     
+    // LIMIT THE GAME TO 10 QUESTIONS
+    func gameLimit(){
+        for _ in 1..<11{
+            if rounds < 10{ // if rounds is less than 10
+                askQuestion() // keep playing
+            } else if rounds == 10{ // when reach to round 10
+                gameOver = true // game over
+                
+                
+            }
+        }
+        
+    }
+    
+    
+    // Func to keep asking question. Rounds
     func askQuestion(){
         colors.shuffle()
         correctColor = Int.random(in: 0...2)
+    }
+    
+    
+    // restart game
+    func resetGame(){
+        currentScore = 0
+        
     }
 }
 
