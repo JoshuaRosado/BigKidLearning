@@ -17,20 +17,22 @@
 import SwiftUI
 
 struct ContentView: View {
+
     @State private var learningTypes = ["Colors", "Numbers", "Letters"]
     @State private var selectedLearningType = "Colors"
     
     
     
     @State private var colors = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Black","Pink", "White", "Brown"].shuffled()
-//    @State private var  numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].shuffled()
-//    @State private var  letters = ["A", "B","C","CH" ,"D", "E", "F", "G", "H", "I","J", "K","L", "LL","M","N","Ñ", "O", "P", "Q","R", "RR","S", "T", "U", "V", "W", "X", "Y", "Z"].shuffled()
+    @State private var  numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].shuffled()
+    @State private var  letters = ["A", "B","C","CH" ,"D", "E", "F", "G", "H", "I","J", "K","L", "LL","M","N","Ñ", "O", "P", "Q","R", "RR","S", "T", "U", "V", "W", "X", "Y", "Z"].shuffled()
     
     @State private var correctColor = Int.random(in: 0...2)
 //    @State private var correctNumber = Int.random(in: 0...2)
 //    @State private var  correctLetter = Int.random(in: 0...2)
     
     @State private var showScore = false
+    @State private var startingGame = true
     @State private var scoreTitle = ""
     @State private var currentScore = 0
     @State private var rounds = 0
@@ -126,7 +128,23 @@ struct ContentView: View {
         } message: {
             Text(" Score \(currentScore) / 10")
         }
+        
+        .alert("Start Game", isPresented: $startingGame){
+            Button("Start", action: selectingGame(gameType: <#T##Int#>))
+        }
     }
+    
+    
+    func selectingGame(gameType: Int) -> String{
+        for games in 0..<learningTypes.count{
+            
+            if gameType == games{
+                return learningTypes[gameType]
+            }
+        }
+        return ""
+    }
+    
     
     // Testing if the option selected is correct or incorrect
     // and if incorrect, show name of the incorrect option selected
@@ -162,8 +180,7 @@ struct ContentView: View {
         colors.shuffle()
         correctColor = Int.random(in: 0...2)
     }
-    
-    
+
     // restart game
     func resetGame(){
         currentScore = 0
