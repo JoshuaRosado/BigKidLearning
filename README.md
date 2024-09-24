@@ -1,0 +1,1 @@
+Created a game for my daughter. She's learning colors, letters and numbers. The game gives her 3 options to select the correct color while showing her how many points she has. Currently colors is the array used. 
