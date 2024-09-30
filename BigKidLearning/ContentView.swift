@@ -72,7 +72,7 @@ struct ContentView: View {
                 HStack(spacing: 55){
                     
                     VStack{
-                        Text("Which color is")
+                        Text("Which \(selectedLearningType) is")
                             .foregroundStyle(.secondary)
                             .font(.title3.bold())
                             .padding(.top)
@@ -113,6 +113,8 @@ struct ContentView: View {
                 
                 Text("Score: \(currentScore)").padding(.top, 25).padding(.bottom, -5).font(.largeTitle).bold().fontDesign(.rounded).foregroundStyle(.secondary)
                 
+                
+                // Selection for learning type
                 Picker("Learning Type", selection: $selectedLearningType){
                     ForEach(learningTypes, id: \.self){
                         Text("\($0)")
