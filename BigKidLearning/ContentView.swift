@@ -112,6 +112,17 @@ struct ContentView: View {
                 .padding(.horizontal)
                 
                 Text("Score: \(currentScore)").padding(.top, 25).padding(.bottom, -5).font(.largeTitle).bold().fontDesign(.rounded).foregroundStyle(.secondary)
+                
+                Picker("Learning Type", selection: $selectedLearningType){
+                    ForEach(learningTypes, id: \.self){
+                        Text("\($0)")
+                        
+                    }
+                }
+                .pickerStyle(.segmented).background(.secondary.opacity(0.2))
+                .frame(minWidth: 200, maxWidth: 300)
+                .padding()
+
             }
             
         }
@@ -129,9 +140,9 @@ struct ContentView: View {
             Text(" Score \(currentScore) / 10")
         }
         
-        .alert("Start Game", isPresented: $startingGame){
-            Button("Start", action: selectingGame(gameType: <#T##Int#>))
-        }
+//        .alert("Start Game", isPresented: $startingGame){
+//            Button("Start", action: selectingGame(gameType: <#T##Int#>))
+//        }
     }
     
     
