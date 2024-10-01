@@ -142,17 +142,19 @@ struct ContentView: View {
             Text(" Score \(currentScore) / 10")
         }
         
-//        .alert("Start Game", isPresented: $startingGame){
-//            Button("Start", action: selectingGame(gameType: <#T##Int#>))
-//        }
+        
+        .alert("Start Game", isPresented: $startingGame){
+            Button("Start", action: selectingGame(gameType: selectedLearningType))
+        }
+        .onAppear()
     }
     
     
-    func selectingGame(gameType: Int) -> String{
-        for games in 0..<learningTypes.count{
+    func selectingGame(gameType: String) -> String{
+        for game in 0..<learningTypes.count{
             
-            if gameType == games{
-                return learningTypes[gameType]
+            if gameType == learningTypes[game]{
+                return learningTypes[game]
             }
         }
         return ""
