@@ -26,7 +26,7 @@ struct ContentView: View {
     @State private var colors = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Black","Pink", "White", "Brown"].shuffled()
     
     
-    @State private var  numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].shuffled()
+    @State private var  numbers = ["1","2","3","4","5","6","7","8","9","10"].shuffled()
     @State private var  letters = ["A", "B","C","CH" ,"D", "E", "F", "G", "H", "I","J", "K","L", "LL","M","N","Ñ", "O", "P", "Q","R", "RR","S", "T", "U", "V", "W", "X", "Y", "Z"].shuffled()
     
     @State private var correctColor = Int.random(in: 0...2)
@@ -80,7 +80,7 @@ struct ContentView: View {
                             .font(.title3.bold())
                             .padding(.top)
                         
-                        Text("\(colors[correctSelection])")
+                        Text("\(numbers[correctSelection])")
                             .foregroundStyle(.black)
                             .font(.title.weight(.heavy))
                             .fontDesign(.rounded)
@@ -96,7 +96,7 @@ struct ContentView: View {
                                 optionSelected(number)
                                 
                             }label: {
-                                Image(colors[number])
+                                Image(numbers[number])
                                     .frame(width: 125, height: 125)
                                     .padding(.top, 20)
                                     .clipShape(.circle)
