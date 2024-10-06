@@ -18,16 +18,19 @@ import SwiftUI
 
 struct ContentView: View {
 
-    @State private var learningTypes = ["Colors", "Numbers", "Letters"]
-    @State private var selectedLearningType = "Colors"
+    @State private var learningTypes = ["Color", "Number", "Letter"]
+    @State private var selectedLearningType = "Color"
     
     
     
     @State private var colors = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange", "Black","Pink", "White", "Brown"].shuffled()
+    
+    
     @State private var  numbers = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].shuffled()
     @State private var  letters = ["A", "B","C","CH" ,"D", "E", "F", "G", "H", "I","J", "K","L", "LL","M","N","Ñ", "O", "P", "Q","R", "RR","S", "T", "U", "V", "W", "X", "Y", "Z"].shuffled()
     
     @State private var correctColor = Int.random(in: 0...2)
+    @State private var correctSelection = Int.random(in: 0...2)
 //    @State private var correctNumber = Int.random(in: 0...2)
 //    @State private var  correctLetter = Int.random(in: 0...2)
     
@@ -46,8 +49,8 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             ZStack{
-           Section{
-               // BG simulating the blue sky
+                Section{
+                    // BG simulating the blue sky
                     LinearGradient(colors: [.gray.opacity(0.3), .blue.opacity(0.5)], startPoint: .bottomLeading, endPoint: .top)
                         .ignoresSafeArea()
                 }
@@ -57,7 +60,7 @@ struct ContentView: View {
                         .init(color:Color(.yellow) , location: 0.1),
                         .init(color: Color(.clear), location: 0.3)
                     ],center: .bottomLeading, startRadius: 150, endRadius: 700)
-                        .ignoresSafeArea()
+                    .ignoresSafeArea()
                 }
             }
             VStack{
@@ -77,16 +80,17 @@ struct ContentView: View {
                             .font(.title3.bold())
                             .padding(.top)
                         
-                        Text("\(colors[correctColor])")
+                        Text("\(colors[correctSelection])")
                             .foregroundStyle(.black)
                             .font(.title.weight(.heavy))
                             .fontDesign(.rounded)
                             .bold()
                             .padding(.bottom)
-                             
+                        
                     }
                     VStack{
                         // Showing 3 colors at a time
+                        
                         ForEach(0..<3){ number in
                             Button {
                                 optionSelected(number)
@@ -117,14 +121,14 @@ struct ContentView: View {
                 // Selection for learning type
                 Picker("Learning Type", selection: $selectedLearningType){
                     ForEach(learningTypes, id: \.self){
-                        Text("\($0)")
+                        Text("\($0)s")
                         
                     }
                 }
                 .pickerStyle(.segmented).background(.secondary.opacity(0.2))
                 .frame(minWidth: 200, maxWidth: 300)
                 .padding()
-
+                
             }
             
         }
@@ -142,23 +146,12 @@ struct ContentView: View {
             Text(" Score \(currentScore) / 10")
         }
         
+
         
-        .alert("Start Game", isPresented: $startingGame){
-            Button("Start", action: selectingGame(gameType: selectedLearningType))
         }
-        .onAppear()
-    }
+        
     
-    
-    func selectingGame(gameType: String) -> String{
-        for game in 0..<learningTypes.count{
-            
-            if gameType == learningTypes[game]{
-                return learningTypes[game]
-            }
-        }
-        return ""
-    }
+
     
     
     // Testing if the option selected is correct or incorrect
