@@ -97,10 +97,12 @@ struct ContentView: View {
                                 
                             }label: {
                                 Image(numbers[number])
-                                    .frame(width: 125, height: 125)
+                                    .resizable()
+                                    .frame(width: 120, height: 120)
                                     .padding(.top, 20)
-                                    .clipShape(.circle)
+                                    .clipShape(.rect(cornerRadius: 5))
                                     .shadow(radius: 5)
+                                    
                                 
                                 
                             }
